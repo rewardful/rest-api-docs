@@ -100,7 +100,9 @@ Additional data for reporting (i.e. referral and reward details) will be added a
 <a id="create-affiliate"></a>
 ## Create Affiliate
 
-This endpoint allows merchants to create affiliates on demand
+This endpoint allows merchants to create affiliates on demand.
+
+Both normal affiliates and "customer referrers" can be created through this endpoint. To create a customer referrer, simply pass the `stripe_customer_id` parameter that indicates the Stripe Customer that should receive account credits as rewards.
 
 ### Request
 
@@ -171,7 +173,7 @@ This endpoint allows merchants to update the affiliate’s name and email.
 Future functionality:
 
 - Allow an active flag to be passed that disables/enables the affiliate account. This will allow merchants to deactivate the corresponding Rewardful affiliate account when a customer cancels their subscription (so that cancelled customers no longer earn rewards).
-- We may automatically sync name and email changes from Stripe. If the Stripe customer’s email changes, Rewardful will receive a webhook notification and update the affiliate to match the new data from Stripe.
+- We may eventually automatically sync name and email changes from Stripe. If the Stripe customer’s email changes, Rewardful will receive a webhook notification and update the affiliate to match the new data from Stripe.
 
 ### Request
 
