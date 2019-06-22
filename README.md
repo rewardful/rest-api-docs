@@ -6,6 +6,8 @@ _**Note:** the [Rewardful](https://www.getrewardful.com/) REST API is currently 
   - [Authentication](#authentication)
   - [Request and Response Formats](#request-response-formats)
   - [Errors](#errors)
+- [Affiliates](#affiliates)
+  - []()
 
 ---
 
@@ -53,4 +55,81 @@ Passing invalid data to a create/update endpoint will return a `422 Unprocessabl
   "error": "Could not create affiliate.",
   "details": ["Email can't be blank"]
 }
+```
+
+<a id="affiliates"></a>
+## Affiliates
+
+The create, show, and update endpoints all return a JSON representation of the affiliate in the format below.
+
+Additional data for reporting (i.e. referral and reward details) will be added as we move forward.
+
+```json
+{
+  "id": "d0ed8392-8880-4f39-8715-60230f9eceab",
+  "created_at": "2019-05-09T16:18:59.920Z",
+  "updated_at": "2019-05-09T16:25:42.614Z",
+  "first_name": "Adam",
+  "last_name": "Jones",
+  "email": "adam.jones@example.com",
+  "paypal_email": null,
+  "stripe_customer_id": "cus_ABCDEF123456",
+  "stripe_account_id": "acct_ABCDEF123456",
+  "referrals": 0,
+  "conversions": 0,
+  "campaign": {
+    "id": "a638ebe4-291d-47cd-a1dc-1519f9331bbd",
+    "created_at": "2019-04-27T18:13:13.123Z",
+    "updated_at": "2019-05-05T20:58:24.200Z",
+    "name": "Best Friends of Kyle"
+  },
+  "links": [
+    {
+      "id": "eb844960-6c42-4a3b-8009-f588a42d8506",
+      "url": "http://www.example.com/?via=adam",
+      "token": "adam",
+      "referrals": 0,
+      "conversions": 0
+    }
+  ]
+}
+```
+
+<a id="create-affiliate"></a>
+### Create Affiliate
+
+This endpoint allows merchants to create affiliates on demand
+
+#### Request
+
+| Method  | URL |
+| --- | --- |
+| `POST`  | https://api.getrewardful.com/v1/affiliates  |
+
+| Parameter | Required? | Description |
+| --- | --- | --- |
+| `first_name` | Yes | The affiliate's first name. |
+| `last_name` | Yes | The affiliate's last name. |
+| `email` | Yes | The affiliate's email address. |
+| `stripe_customer_id` | No | For customer referral programs, this is the Stripe Customer that will receive account credits as rewards. |
+| `token` | No | Alphanumeric code to be used for links, ex: ``?via=token` Must contain only letters, numbers, and dashes. |
+
+#### Response
+
+| | Code | Body |
+| --- | --- | --- |
+| **Success** | `200` | JSON object describing the affiliate. |
+| **Invalid** | `422` | JSON object describing validation errors. |
+
+#### Example:
+
+```shell
+curl --request POST \
+  --url https://api.getrewardful.com/v1/affiliates \
+  -u YOUR_API_SECRET: \
+  -d first_name=James \
+  -d last_name=Bond \
+  -d email=jb007@mi6.co.uk \
+  -d token=jb007 \
+  -d stripe_customer_id=cus_ABC123
 ```
