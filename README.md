@@ -8,6 +8,8 @@ _**Note:** the [Rewardful](https://www.getrewardful.com/) REST API is currently 
   - [Errors](#errors)
 - [Affiliates](#affiliates)
   - [Create Affiliate](#create-affiliate)
+  - [Show Affiliate](#show-affiliate)
+  - [Update Affiliate](#update-affiliate)
 
 ---
 
@@ -19,7 +21,7 @@ _**Note:** the [Rewardful](https://www.getrewardful.com/) REST API is currently 
 
 All API requests require authentication with [HTTP Basic Auth](https://en.wikipedia.org/wiki/Basic_access_authentication), similar to how Stripe authenticates. Provide your API Secret as the basic auth `username` value. You do not need to provide a password.
 
-```shell
+```bash
 curl https://api.getrewardful.com/v1/affiliates/7B016217-18AF-44DD-A30C-0DE0C1534D2A \
   -u YOUR_API_SECRET:
 ```
@@ -29,7 +31,7 @@ Your API Secret can be found on the [Company Settings](https://app.getrewardful.
 <a id="request-response-formats"></a>
 ## Request and Response Formats
 
-Rewardful will provide a JSON-based REST API through which AND CO can create affiliate accounts and fetch data for reporting. Endpoints accept [form-encoded](https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms) request bodies and return [JSON-encoded](http://www.json.org/) responses.
+Rewardful will provide a JSON-based REST API through which merchants can create affiliate accounts and fetch data for reporting. Endpoints accept [form-encoded](https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms) request bodies and return [JSON-encoded](http://www.json.org/) responses.
 
 Rewardful uses [UUID strings](https://en.wikipedia.org/wiki/Universally_unique_identifier) for primary keys (IDs) for all resources. If you plan to store Rewardful IDs in your database, make sure to use a column type (string, UUID, etc) appropriate for your database engine.
 
@@ -106,6 +108,8 @@ This endpoint allows merchants to create affiliates on demand
 | --- | --- |
 | `POST`  | https://api.getrewardful.com/v1/affiliates  |
 
+### Parameters
+
 | Parameter | Required? | Description |
 | --- | --- | --- |
 | `first_name` | Yes | The affiliate's first name. |
@@ -123,7 +127,7 @@ This endpoint allows merchants to create affiliates on demand
 
 ### Example:
 
-```shell
+```bash
 curl --request POST \
   --url https://api.getrewardful.com/v1/affiliates \
   -u YOUR_API_SECRET: \
@@ -132,4 +136,72 @@ curl --request POST \
   -d email=jb007@mi6.co.uk \
   -d token=jb007 \
   -d stripe_customer_id=cus_ABC123
+```
+
+<a id="show-affiliate"></a>
+## Show Affiliate
+
+This endpoint will return some basic details about the affiliate and their unique tracking URL, including the number of clicks and conversions for that affiliate.
+
+### Request
+
+| Method  | URL |
+| --- | --- |
+| `GET`  | https://api.getrewardful.com/v1/affiliates/<:id>  |
+
+### Response
+
+| | Code | Body |
+| --- | --- | --- |
+| **Success** | `200` | JSON object describing the affiliate. |
+| **Not Found** | `404` | JSON object describing the error. |
+
+### Example:
+
+```bash
+curl https://api.getrewardful.com/v1/affiliates/d0ed8392-8880-4f39-8715-60230f9eceab \
+  -u YOUR_API_SECRET:
+```
+
+<a id="update-affiliate"></a>
+## Update Affiliate
+
+This endpoint allows merchants to update the affiliate’s name and email.
+
+Future functionality:
+
+- Allow an active flag to be passed that disables/enables the affiliate account. This will allow merchants to deactivate the corresponding Rewardful affiliate account when a customer cancels their subscription (so that cancelled customers no longer earn rewards).
+- We may automatically sync name and email changes from Stripe. If the Stripe customer’s email changes, Rewardful will receive a webhook notification and update the affiliate to match the new data from Stripe.
+
+### Request
+
+| Method  | URL |
+| --- | --- |
+| `PUT`  | https://api.getrewardful.com/v1/affiliates/<:id>  |
+
+### Parameters
+
+| Parameter | Required? | Description |
+| --- | --- | --- |
+| `first_name` | No | The affiliate's first name. |
+| `last_name` | No | The affiliate's last name. |
+| `email` | No | The affiliate's email address. |
+| `stripe_customer_id` | No | For customer referral programs, this is the Stripe Customer that will receive account credits as rewards. |
+
+### Response
+
+| | Code | Body |
+| --- | --- | --- |
+| **Success** | `200` | JSON object describing the affiliate. |
+| **Not Found** | `404` | JSON object describing the error. |
+| **Invalid** | `422` | JSON object describing validation errors. |
+
+### Example
+
+```bash
+curl --request PUT \
+  --url https://api.getrewardful.com/v1/affiliates/d0ed8392-8880-4f39-8715-60230f9eceab \
+  -u YOUR_API_SECRET: \
+  -d first_name=Jamie \
+  -d email=james.bond@mi6.co.uk
 ```
