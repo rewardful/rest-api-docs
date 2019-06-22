@@ -7,7 +7,7 @@ _**Note:** the [Rewardful](https://www.getrewardful.com/) REST API is currently 
   - [Request and Response Formats](#request-response-formats)
   - [Errors](#errors)
 - [Affiliates](#affiliates)
-  - []()
+  - [Create Affiliate](#create-affiliate)
 
 ---
 
