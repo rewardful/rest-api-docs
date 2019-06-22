@@ -12,10 +12,10 @@ _**Note:** the [Rewardful](https://www.getrewardful.com/) REST API is currently 
 ---
 
 <a id="introduction"></a>
-## Introduction
+# Introduction
 
 <a id="authentication"></a>
-### Authentication
+## Authentication
 
 All API requests require authentication with [HTTP Basic Auth](https://en.wikipedia.org/wiki/Basic_access_authentication), similar to how Stripe authenticates. Provide your API Secret as the basic auth `username` value. You do not need to provide a password.
 
@@ -27,14 +27,14 @@ curl https://api.getrewardful.com/v1/affiliates/7B016217-18AF-44DD-A30C-0DE0C153
 Your API Secret can be found on the [Company Settings](https://app.getrewardful.com/company/edit) page. **Keep your API Secret safe!** Do not commit it to your version control system or share it with third-parties.
 
 <a id="request-response-formats"></a>
-### Request and Response Formats
+## Request and Response Formats
 
 Rewardful will provide a JSON-based REST API through which AND CO can create affiliate accounts and fetch data for reporting. Endpoints accept [form-encoded](https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms) request bodies and return [JSON-encoded](http://www.json.org/) responses.
 
 Rewardful uses [UUID strings](https://en.wikipedia.org/wiki/Universally_unique_identifier) for primary keys (IDs) for all resources. If you plan to store Rewardful IDs in your database, make sure to use a column type (string, UUID, etc) appropriate for your database engine.
 
 <a id="errors"></a>
-### Errors
+## Errors
 
 Missing or invalid authorization will return a `401 Unauthorized` JSON response:
 
@@ -58,7 +58,7 @@ Passing invalid data to a create/update endpoint will return a `422 Unprocessabl
 ```
 
 <a id="affiliates"></a>
-## Affiliates
+# Affiliates
 
 The create, show, and update endpoints all return a JSON representation of the affiliate in the format below.
 
@@ -96,11 +96,11 @@ Additional data for reporting (i.e. referral and reward details) will be added a
 ```
 
 <a id="create-affiliate"></a>
-### Create Affiliate
+## Create Affiliate
 
 This endpoint allows merchants to create affiliates on demand
 
-#### Request
+### Request
 
 | Method  | URL |
 | --- | --- |
@@ -114,14 +114,14 @@ This endpoint allows merchants to create affiliates on demand
 | `stripe_customer_id` | No | For customer referral programs, this is the Stripe Customer that will receive account credits as rewards. |
 | `token` | No | Alphanumeric code to be used for links, ex: ``?via=token` Must contain only letters, numbers, and dashes. |
 
-#### Response
+### Response
 
 | | Code | Body |
 | --- | --- | --- |
 | **Success** | `200` | JSON object describing the affiliate. |
 | **Invalid** | `422` | JSON object describing validation errors. |
 
-#### Example:
+### Example:
 
 ```shell
 curl --request POST \
