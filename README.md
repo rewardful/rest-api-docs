@@ -10,6 +10,11 @@ _**Note:** the [Rewardful](https://www.getrewardful.com/) REST API is currently 
   - [Create Affiliate](#create-affiliate)
   - [Show Affiliate](#show-affiliate)
   - [Update Affiliate](#update-affiliate)
+- [Webhooks](#webhooks)
+  - [Endpoints](#webhooks-endpoints)
+  - [Requests](#webhooks-requests)
+  - [Responses, Errors, and Retries](#webhooks-responses)
+  - [Event Types](#webhooks-event-types)
 
 ---
 
@@ -207,3 +212,97 @@ curl --request PUT \
   -d first_name=Jamie \
   -d email=james.bond@mi6.co.uk
 ```
+
+<a id="webhooks"></a>
+# Webhooks
+
+Rewardful can send webhook events that notify your application any time an event happens in your account. A common example is to receive a webhook when an affiliate signs up, which allows you to subscribe that affiliate to an email campaign in an external email service provider.
+
+<a id="webhook-endpoints"></a>
+## Endpoints
+
+To receive webhook events, you must add a _webhook endpoint_ to your Rewardful account. You can request an endpoint be added by emailing hello@getrewardful.com.
+
+And endpoint is simply a URL _on your application_ that Rewardful will send data to when an event occurs. Endpoints must be HTTP/SSL.
+
+An example endpoint: `http://www.example.com/webhooks/rewardful`
+
+<a id="webhook-requests"></a>
+## Requests
+
+Webhook data is sent as JSON in the POST request body to your configured endpoints.
+
+The JSON payload has three root keys:
+
+1. `object` represents the object that triggered the event (an affiliate, campaign, conversion, commission, etc.). The object's JSON structure will be identical to the structure returned by the REST API endpoints for that object type.
+1. `event` contains metadata about the webhook event.
+1. `request` contains metadata about this specific request to your endpoint.
+
+### Example Payload
+
+Below is an example of the JSON that would be posted to your endpoint for the `affiliate.confirmed` event, i.e. when an affiliate has successfully confirmed their email address.
+
+```json
+{
+  "object": {
+    "id": "3433fffa-8255-4843-81b1-22aebc21eb34",
+    "first_name": "James",
+    "last_name": "Bond",
+    "email": "james@mi6.co.uk",
+    "created_at": "2019-06-24T00:43:36.097Z",
+    "updated_at": "2019-06-27T18:38:41.684Z",
+    "referrals": 42,
+    "conversions": 3,
+    "confirmed_at": "2019-06-24T00:43:36.095Z",
+    "links": [{
+      "id": "81bf1128-0ba1-4c1c-835c-286521f8791a",
+      "url": "http://www.demo.com:8080/?via=james",
+      "token": "james",
+      "referrals": 42,
+      "conversions": 3
+    }],
+    "campaign": {
+      "id": "82f26208-778e-4e98-a467-6ee264cf96d5",
+      "name": "Friends of Acme",
+      "created_at": "2019-06-24T00:43:35.985Z",
+      "updated_at": "2019-06-24T00:43:35.985Z"
+    },
+    "paypal_email": null,
+    "sign_in_count": 0,
+    "stripe_account_id": null,
+    "unconfirmed_email": null,
+    "stripe_customer_id": null,
+    "paypal_email_confirmed_at": null,
+    "receive_new_commission_notifications": true
+  },
+  "event": {
+    "id": "7fcdc81d-996a-4b7b-8faf-1db98b9d5507",
+    "type": "affiliate.confirmed",
+    "created_at": "2019-07-11T05:25:43.940Z",
+    "api_version": "v1"
+  },
+  "request": {
+    "id": "66a94f49-2b36-403c-83b8-91677cb1f460"
+  }
+}
+```
+
+<a id="webhook-responses"></a>
+## Responses, Errors, and Retries
+
+When your endpoint receives and successfully processes a webhook event, your web server should return a `200` response code.
+
+Any response code from your endpoint other than a `200` will be interpreted as a failure.
+
+If a webhook fails, Rewardful will continue to attempt delivery over the next 3 days using exponential backoff. This means if the failures continue, we'll wait longer and longer between retries, before finally giving up after 3 days.
+
+<a id="webhook-event-types"></a>
+## Event Types
+
+During the private beta, we're continually rolling out more event types. If there's a specific event you're interested in, let us know by emailing us at hello@getrewardful.com.
+
+| Event | Description |
+| --- | --- |
+| `affiliate.created` | Occurs when an affiliate signs up for your program, or is created through the Rewardful dashboard or API. |
+| `affiliate.confirmed` | Occurs when an affiliate successfully confirms their email address. |
+| `affiliate.updated` | Occurs when an affiliate's details are updated. |
