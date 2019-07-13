@@ -124,6 +124,7 @@ Both normal affiliates and "customer referrers" can be created through this endp
 | `email` | Yes | The affiliate's email address. |
 | `stripe_customer_id` | No | For customer referral programs, this is the Stripe Customer that will receive account credits as rewards. |
 | `token` | No | Alphanumeric code to be used for links, ex: ``?via=token` Must contain only letters, numbers, and dashes. |
+| `campaign_id` | No | The UUID of the campaign this affiliate should be added to. Affiliate will be added to your default campaign if this parameter is blank. |
 
 ### Response
 
@@ -194,6 +195,7 @@ Future functionality:
 | `last_name` | No | The affiliate's last name. |
 | `email` | No | The affiliate's email address. |
 | `stripe_customer_id` | No | For customer referral programs, this is the Stripe Customer that will receive account credits as rewards. |
+| `campaign_id` | No | The UUID of the campaign this affiliate should be moved to. [Learn more about moving affiliates between campaigns.](https://help.getrewardful.com/en/articles/2330644-working-with-multiple-campaigns#moving-affiliates-between-campaigns) |
 
 ### Response
 
