@@ -82,8 +82,9 @@ Additional data for reporting (i.e. referral and reward details) will be added a
   "paypal_email": null,
   "stripe_customer_id": "cus_ABCDEF123456",
   "stripe_account_id": "acct_ABCDEF123456",
-  "referrals": 0,
-  "conversions": 0,
+  "visitors": 100,
+  "leads": 42,
+  "conversions": 18,
   "campaign": {
     "id": "a638ebe4-291d-47cd-a1dc-1519f9331bbd",
     "created_at": "2019-04-27T18:13:13.123Z",
@@ -95,8 +96,9 @@ Additional data for reporting (i.e. referral and reward details) will be added a
       "id": "eb844960-6c42-4a3b-8009-f588a42d8506",
       "url": "http://www.example.com/?via=adam",
       "token": "adam",
-      "referrals": 0,
-      "conversions": 0
+      "visitors": 100,
+      "leads": 42,
+      "conversions": 18,
     }
   ]
 }
@@ -149,7 +151,7 @@ curl --request POST \
 <a id="show-affiliate"></a>
 ## Show Affiliate
 
-This endpoint will return some basic details about the affiliate and their unique tracking URL, including the number of clicks and conversions for that affiliate.
+This endpoint will return some basic details about the affiliate and their unique tracking URL, including the number of visitors, leads, and conversions for that affiliate.
 
 ### Request
 
