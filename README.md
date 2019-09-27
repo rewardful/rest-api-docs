@@ -11,10 +11,10 @@ _**Note:** the [Rewardful](https://www.getrewardful.com/) REST API is currently 
   - [Show Affiliate](#show-affiliate)
   - [Update Affiliate](#update-affiliate)
 - [Webhooks](#webhooks)
-  - [Endpoints](#webhooks-endpoints)
-  - [Requests](#webhooks-requests)
-  - [Responses, Errors, and Retries](#webhooks-responses)
-  - [Event Types](#webhooks-event-types)
+  - [Endpoints](#webhook-endpoints)
+  - [Requests](#webhook-requests)
+  - [Responses, Errors, and Retries](#webhook-responses)
+  - [Event Types](#webhook-event-types)
 
 ---
 
@@ -127,6 +127,7 @@ Both normal affiliates and "customer referrers" can be created through this endp
 | `stripe_customer_id` | No | For customer referral programs, this is the Stripe Customer that will receive account credits as rewards. |
 | `token` | No | Alphanumeric code to be used for links, ex: ``?via=token` Must contain only letters, numbers, and dashes. |
 | `campaign_id` | No | The UUID of the campaign this affiliate should be added to. Affiliate will be added to your default campaign if this parameter is blank. |
+| `receive_new_commission_notifications` | No | Whether or not the affiliate should receive emails when new rewards and commissions are earned. Accepts `true` (default) or `false`.
 
 ### Response
 
@@ -198,6 +199,7 @@ Future functionality:
 | `email` | No | The affiliate's email address. |
 | `stripe_customer_id` | No | For customer referral programs, this is the Stripe Customer that will receive account credits as rewards. |
 | `campaign_id` | No | The UUID of the campaign this affiliate should be moved to. [Learn more about moving affiliates between campaigns.](https://help.getrewardful.com/en/articles/2330644-working-with-multiple-campaigns#moving-affiliates-between-campaigns) |
+| `receive_new_commission_notifications` | No | Whether or not the affiliate should receive emails when new rewards and commissions are earned. Accepts `true` or `false`.
 
 ### Response
 
