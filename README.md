@@ -323,13 +323,44 @@ Rewardful generates signatures using a hash-based message authentication code ([
 
 The signature is contained in the HTTP header `X-Rewardful-Signature`. You can verify the signature by hashing your Signing Secret with the request body, then comparing the result with `X-Rewardful-Signature`. If they match, it means the request is legitimate.
 
-Here are some examples of how you can verify the signature in a few programming languages:
+Here are some examples of how you can verify the signature in a few frameworks and programming languages:
+
+#### Ruby on Rails
 
 ```ruby
-# Ruby on Rails
 expected_signature = OpenSSL::HMAC.hexdigest('sha256', 'my-rewardful-signing-secret', request.raw_post)
 
 if expected_signature == request.headers['X-Rewardful-Signature']
   # The request is legitimate and can be safely processed.
 end
+```
+
+#### PHP
+
+```php
+<?php
+$postBody = file_get_contents("php://input");
+$expectedSignature = hash_hmac('sha256', $postBody, 'my-rewardful-signing-secret')
+
+if ($expectedSignature == $_SERVER['X-Rewardful-Signature']) {
+  // The request is legitimate and can be safely processed.
+}
+
+?>
+```
+
+### Django
+
+```python
+import hmac
+import hashlib
+
+expected_signature = hmac.new(
+    'my-rewardful-signing-secret',
+    msg=request.body,
+    digestmod=hashlib.sha256
+).hexdigest()
+
+if expected_signature == request.headers['X-Rewardful-Signature']:
+  # The request is legitimate and can be safely processed.
 ```
