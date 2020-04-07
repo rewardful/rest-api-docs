@@ -339,6 +339,7 @@ end
 
 ```php
 <?php
+
 $postBody = file_get_contents("php://input");
 $expectedSignature = hash_hmac('sha256', $postBody, 'my-rewardful-signing-secret')
 
