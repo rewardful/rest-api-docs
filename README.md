@@ -340,12 +340,28 @@ end
 ```php
 <?php
 
-$postBody = file_get_contents("php://input");
-$expectedSignature = hash_hmac('sha256', $postBody, 'my-rewardful-signing-secret')
+$payload = @file_get_contents('php://input');
 
-if ($expectedSignature == $_SERVER['X-Rewardful-Signature']) {
-  // The request is legitimate and can be safely processed.
+if (strlen($payload) == 0) {
+  http_response_code(401);
+  die("rejected");
 }
+
+$headers = getallheaders();
+
+if (!array_key_exists("X-Rewardful-Signature", $headers)) {
+  http_response_code(401);
+  die("rejected");
+}
+
+$expectedSignature = hash_hmac('sha256', $payload, 'my-rewardful-signing-secret');
+
+if($expectedSignature !== $headers["X-Rewardful-Signature"]) {
+  http_response_code(401);
+  die("rejected");
+}
+
+// The request is legitimate and can be safely processed.
 
 ?>
 ```
