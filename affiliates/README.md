@@ -8,6 +8,8 @@
 <a id="object"></a>
 ## The affiliate object
 
+### Example
+
 ```json
 {
   "id": "d0ed8392-8880-4f39-8715-60230f9eceab",
@@ -41,18 +43,44 @@
 }
 ```
 
+### Attributes
+
+| Name  | Data Type | Description |
+| --- | --- | --- |
+| `id`  | `string`  | Unique identifier for the affiliate. |
+| `created_at`  | `string`  | Time at which the affiliate was created. |
+| `updated_at`  | `string`  | Time at which the affiliate was last updated. |
+| `first_name`  | `string`  | The affiliate's first name. |
+| `last_name`  | `string`  | The affiliate's last name. |
+| `email`  | `string`  | The affiliate's email address name. |
+| `paypal_email`  | `string` or `null`  | The affiliate's preferred PayPal email address, if different than `email`. |
+| `visitors`  | `string`  | The total number of unique visitors attributes to this affiliate. |
+| `leads`  | `string`  | The total number of leads (anonymous visitors who became customers) attributed to this affiliate. |
+| `conversions`  | `string`  | The total number of conversions (leads who have made at least one payment) attributed to this affiliate. |
+| `campaign`  | `string`  | A campaign object representing the campaign this affiliate belongs to. |
+| `links`  | `array`  | An array of link objects representing the affiliate's links. |
+
+#### Additional attributes for customer referrers
+
+These attributes only apply to affiliates who are members of a customer referral program.
+
+| Name  | Data Type | Description |
+| --- | --- | --- |
+| `stripe_customer_id`  | `string`  | Represents the Stripe Customer associated with this affiliate. This is the Stripe Customer that will receive rewards in the form of account credits. |
+| `stripe_account_id`  | `string`  | The Stripe Account that contains the customer represented by `stripe_customer_id`. |
+
 <a id="create"></a>
 ## Create an affiliate
 
 This endpoint allows merchants to create affiliates on demand.
 
-Both normal affiliates and "customer referrers" can be created through this endpoint. To create a customer referrer, simply pass the `stripe_customer_id` parameter that indicates the Stripe Customer that should receive account credits as rewards.
+Both normal affiliates and customer referrers can be created through this endpoint. To create a customer referrer, simply pass the `stripe_customer_id` parameter that indicates the Stripe Customer that should receive account credits as rewards.
 
 ### Request
 
 | Method  | URL |
 | --- | --- |
-| `POST`  | https://api.getrewardful.com/v1/affiliates  |
+| `POST`  | `https://api.getrewardful.com/v1/affiliates`  |
 
 ### Parameters
 
@@ -62,7 +90,7 @@ Both normal affiliates and "customer referrers" can be created through this endp
 | `last_name` | Yes | The affiliate's last name. |
 | `email` | Yes | The affiliate's email address. |
 | `stripe_customer_id` | No | For customer referral programs, this is the Stripe Customer that will receive account credits as rewards. |
-| `token` | No | Alphanumeric code to be used for links, ex: ``?via=token` Must contain only letters, numbers, and dashes. |
+| `token` | No | Alphanumeric code to be used for links, ex: `?via=token` Must contain only letters, numbers, and dashes. |
 | `campaign_id` | No | The UUID of the campaign this affiliate should be added to. Affiliate will be added to your default campaign if this parameter is blank. |
 | `receive_new_commission_notifications` | No | Whether or not the affiliate should receive emails when new rewards and commissions are earned. Accepts `true` (default) or `false`.
 
@@ -89,13 +117,13 @@ curl --request POST \
 <a id="retrieve"></a>
 ## Retrieve an affiliate
 
-This endpoint will return some basic details about the affiliate and their unique tracking URL, including the number of visitors, leads, and conversions for that affiliate.
+Retrieves the details of an existing affiliate. You need only supply the unique affiliate identifier that was returned upon affiliate creation.
 
 ### Request
 
 | Method  | URL |
 | --- | --- |
-| `GET`  | https://api.getrewardful.com/v1/affiliates/<:id>  |
+| `GET`  | `https://api.getrewardful.com/v1/affiliates/:id`  |
 
 ### Response
 
@@ -114,18 +142,13 @@ curl https://api.getrewardful.com/v1/affiliates/d0ed8392-8880-4f39-8715-60230f9e
 <a id="update"></a>
 ## Update an affiliate
 
-This endpoint allows merchants to update the affiliate’s name and email.
-
-Future functionality:
-
-- Allow an active flag to be passed that disables/enables the affiliate account. This will allow merchants to deactivate the corresponding Rewardful affiliate account when a customer cancels their subscription (so that cancelled customers no longer earn rewards).
-- We may eventually automatically sync name and email changes from Stripe. If the Stripe customer’s email changes, Rewardful will receive a webhook notification and update the affiliate to match the new data from Stripe.
+Updates the specified affiliate by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
 ### Request
 
 | Method  | URL |
 | --- | --- |
-| `PUT`  | https://api.getrewardful.com/v1/affiliates/<:id>  |
+| `PUT`  | `https://api.getrewardful.com/v1/affiliates/:id`  |
 
 ### Parameters
 

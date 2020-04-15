@@ -38,6 +38,8 @@ Rewardful will provide a JSON-based REST API through which merchants can create 
 
 Rewardful uses [UUID strings](https://en.wikipedia.org/wiki/Universally_unique_identifier) for primary keys (IDs) for all resources. If you plan to store Rewardful IDs in your database, make sure to use a column type (string, UUID, etc) appropriate for your database engine.
 
+Dates and times in the Rewardful API are represented as [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) formatted strings.
+
 <a id="errors"></a>
 ## Errors
 
