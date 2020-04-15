@@ -70,40 +70,10 @@ Passing invalid data to a create/update endpoint will return a `422 Unprocessabl
 
 The create, show, and update endpoints all return a JSON representation of the affiliate in the format below.
 
-Additional data for reporting (i.e. referral and reward details) will be added as we move forward.
+- [Affiliates](affiliates/)
+- [Affiliates](affiliates/affiliate.json)
 
-```json
-{
-  "id": "d0ed8392-8880-4f39-8715-60230f9eceab",
-  "created_at": "2019-05-09T16:18:59.920Z",
-  "updated_at": "2019-05-09T16:25:42.614Z",
-  "first_name": "Adam",
-  "last_name": "Jones",
-  "email": "adam.jones@example.com",
-  "paypal_email": null,
-  "stripe_customer_id": "cus_ABCDEF123456",
-  "stripe_account_id": "acct_ABCDEF123456",
-  "visitors": 100,
-  "leads": 42,
-  "conversions": 18,
-  "campaign": {
-    "id": "a638ebe4-291d-47cd-a1dc-1519f9331bbd",
-    "created_at": "2019-04-27T18:13:13.123Z",
-    "updated_at": "2019-05-05T20:58:24.200Z",
-    "name": "Best Friends of Kyle"
-  },
-  "links": [
-    {
-      "id": "eb844960-6c42-4a3b-8009-f588a42d8506",
-      "url": "http://www.example.com/?via=adam",
-      "token": "adam",
-      "visitors": 100,
-      "leads": 42,
-      "conversions": 18,
-    }
-  ]
-}
-```
+Additional data for reporting (i.e. referral and reward details) will be added as we move forward.
 
 <a id="create-affiliate"></a>
 ## Create Affiliate
