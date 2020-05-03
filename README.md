@@ -196,6 +196,8 @@ The `object` key for these events will describe a [`referral`](./referrals/READM
 <a id="webhook-event-sales"></a>
 ### Sales
 
+The `object` key for these events will describe a [`sale`](./sales/README.md) object.
+
 | Event | Description |
 | --- | --- |
 | `sale.created` | Occurs when a sale is created. |
@@ -205,6 +207,8 @@ The `object` key for these events will describe a [`referral`](./referrals/READM
 
 <a id="webhook-event-commissions"></a>
 ### Commissions
+
+The `object` key for these events will describe a [`commission`](./commissions/README.md) object.
 
 | Event | Description |
 | --- | --- |
