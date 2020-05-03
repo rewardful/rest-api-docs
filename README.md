@@ -12,6 +12,10 @@ _**Note:** the [Rewardful](https://www.getrewardful.com/) REST API is currently 
   - [Requests](#webhook-requests)
   - [Responses, Errors, and Retries](#webhook-responses)
   - [Event Types](#webhook-event-types)
+    - [Affiliates](#webhook-event-affiliates)
+    - [Referrals](#webhook-event-referrals)
+    - [Sales](#webhook-event-sales)
+    - [Commissions](#webhook-event-commissions)
   - [Signed Webhooks](#signed-webhooks)
 
 ---
@@ -155,13 +159,47 @@ If a webhook fails, Rewardful will continue to attempt delivery over the next 3 
 <a id="webhook-event-types"></a>
 ## Event Types
 
-During the private beta, we're continually rolling out more event types. If there's a specific event you're interested in, let us know by emailing us at hello@getrewardful.com.
+This is a list of all the types of events we currently send. We may add more at any time, so in developing and maintaining your code, you should not assume that only these types exist.
+
+<a id="webhook-event-affiliates"></a>
+### Affiliates
 
 | Event | Description |
 | --- | --- |
 | `affiliate.created` | Occurs when an affiliate signs up for your program, or is created through the Rewardful dashboard or API. |
 | `affiliate.confirmed` | Occurs when an affiliate successfully confirms their email address. |
 | `affiliate.updated` | Occurs when an affiliate's details are updated. |
+| `affiliate.deleted` | Occurs when an affiliate is deleted. |
+
+<a id="webhook-event-referrals"></a>
+### Referrals
+
+| Event | Description |
+| --- | --- |
+| `referral.created` | Occurs when a referral is created. |
+| `referral.lead` | Occurs when a referral transitions to a "lead" state. |
+| `referral.converted` | Occurs when a referral transitions to a "conversion" state (i.e. paid customer). |
+| `referral.deleted` | Occurs when a referral is deleted. |
+
+<a id="webhook-event-sales"></a>
+### Sales
+
+| Event | Description |
+| --- | --- |
+| `sale.created` | Occurs when a sale is created. |
+| `sale.updated` | Occurs when a sale is updated. |
+| `sale.refunded` | Occurs when a sale is refunded. |
+| `sale.deleted` | Occurs when a sale is deleted. |
+
+<a id="webhook-event-commissions"></a>
+### Commissions
+
+| Event | Description |
+| --- | --- |
+| `commission.created` | Occurs when a new commission is created. |
+| `commission.updated` | Occurs when a commission is updated. |
+| `commission.paid` | Occurs when a commission is paid. |
+| `commission.deleted` | Occurs when a commission is deleted. |
 
 <a id="signed-webhooks"></a>
 ## Signed Webhooks
