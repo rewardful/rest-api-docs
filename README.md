@@ -100,6 +100,14 @@ The JSON payload has three root keys:
 
 ### Example Payload
 
+Webhook payloads contain these top-level items:
+
+| Key | Description |
+| --- | --- |
+| `object` | A JSON representation of the record (Affiliate, Commission, etc) that triggered the event. |
+| `event` | Metadata about the event itself. |
+| `request` | Metadata about this specific request. |
+
 Below is an example of the JSON that would be posted to your endpoint for the `affiliate.confirmed` event, i.e. when an affiliate has successfully confirmed their email address.
 
 ```json
