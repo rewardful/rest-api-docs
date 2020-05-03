@@ -172,6 +172,8 @@ This is a list of all the types of events we currently send. We may add more at 
 <a id="webhook-event-affiliates"></a>
 ### Affiliates
 
+The `object` key for these events will describe an [`affiliate`](./affiliates/README.md) object.
+
 | Event | Description |
 | --- | --- |
 | `affiliate.created` | Occurs when an affiliate signs up for your program, or is created through the Rewardful dashboard or API. |
@@ -181,6 +183,8 @@ This is a list of all the types of events we currently send. We may add more at 
 
 <a id="webhook-event-referrals"></a>
 ### Referrals
+
+The `object` key for these events will describe a [`referral`](./referrals/README.md) object.
 
 | Event | Description |
 | --- | --- |
