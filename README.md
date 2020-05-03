@@ -81,7 +81,7 @@ Rewardful can send webhook events that notify your application any time an event
 <a id="webhook-endpoints"></a>
 ## Endpoints
 
-To receive webhook events, you must add a _webhook endpoint_ to your Rewardful account. You can request an endpoint be added by emailing hello@getrewardful.com.
+To receive webhook events, you must add a _webhook endpoint_ to your Rewardful account. You can add, edit, or remove endpoints from the [Webhooks](https://app.getrewardful.com/webhooks) page in your Rewardful dashboard.
 
 And endpoint is simply a URL _on your application_ that Rewardful will send data to when an event occurs. Endpoints must be HTTP/SSL.
 
