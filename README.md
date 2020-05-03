@@ -78,6 +78,10 @@ Passing invalid data to a create/update endpoint will return a `422 Unprocessabl
 
 Rewardful can send webhook events that notify your application any time an event happens in your account. A common example is to receive a webhook when an affiliate signs up, which allows you to subscribe that affiliate to an email campaign in an external email service provider.
 
+Webhooks can also be used to connect Rewardful with [Zapier](https://zapier.com/). To see an example of how to do this, see our [How to connect Rewardful to Zapier](https://www.youtube.com/watch?v=FC1uH47xc7Q) screencast.
+
+https://www.youtube.com/watch?v=FC1uH47xc7Q
+
 <a id="webhook-endpoints"></a>
 ## Endpoints
 
